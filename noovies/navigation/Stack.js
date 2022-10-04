@@ -13,10 +13,10 @@ const ScreenTwo = ({ navigation: { navigate } }) => (
     <Text>Two</Text>
   </TouchableOpacity>
 );
-const ScreenThree = () => (
-  <View>
-    <Text>Three</Text>
-  </View>
+const ScreenThree = ({ navigation: { navigate } }) => (
+  <TouchableOpacity onPress={() => navigate("Tabs", { screen: "Search" })}>
+    <Text>go to Search Tab</Text>
+  </TouchableOpacity>
 );
 
 const NativeStack = createNativeStackNavigator();
