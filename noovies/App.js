@@ -1,13 +1,14 @@
 import AppLoading from "expo-app-loading";
 import React, { useState } from "react";
-import { Text, Image } from "react-native";
+import { Text, Image, useColorScheme } from "react-native";
 import * as Font from "expo-font";
 import { Ionicons } from "@expo/vector-icons";
 import { Asset } from "expo-asset";
-import { NavigationContainer } from "@react-navigation/native";
+import { NavigationContainer, ThemeProvider } from "@react-navigation/native";
 import Tabs from "./navigation/Tabs";
 import Stack from "./navigation/Stack";
 import Root from "./navigation/Root";
+import { darkTheme, lightTheme } from "./styled";
 
 const loadFonts = (fonts) => fonts.map((font) => Font.loadAsync(font));
 const loadImages = (images) =>
@@ -33,6 +34,7 @@ export default function App() {
     const images = loadImages(["https://reactnative.dev/img/oss_logo.png"]);
     await Promise.all([...fonts, ...images]);
   };
+  const isDark = useColorScheme() === "dark";
   if (!ready) {
     return (
       <AppLoading
@@ -43,8 +45,10 @@ export default function App() {
     );
   }
   return (
-    <NavigationContainer>
-      <Root />
-    </NavigationContainer>
+    <ThemeProvider theme={isDark ? darkTheme : lightTheme}>
+      <NavigationContainer>
+        <Root />
+      </NavigationContainer>
+    </ThemeProvider>
   );
 }
